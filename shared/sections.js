@@ -17,6 +17,7 @@
 (() => {
   const ES = { sx: {
     exampleTag: 'Foto de ejemplo',
+    genTag: 'Imagen generada',
     pending: '{label} (pendiente)',
     doubts: {
       h: 'Casi todo el mundo empieza con dudas',
@@ -38,7 +39,7 @@
       p: '',
       items: [
         { t: 'En consulta', d: '[Dirección de la consulta en Barcelona, cómo llegar y si es accesible.]', ph: 'Foto de la consulta', img: 'shared/img/consulta-sala.jpg', real: true, alt: 'La consulta de Claudia: un sofá verde, un sillón y una alfombra junto a dos ventanas con estores' },
-        { t: 'Por videollamada', d: 'Desde donde estés. Solo necesitas una buena conexión y un sitio donde puedas hablar con tranquilidad. [Plataforma que uso.]', ph: 'Foto de la sesión online', img: 'shared/img/people-online.jpg', alt: 'Persona en una videollamada desde su casa' },
+        { t: 'Por videollamada', d: 'Desde donde estés. Solo necesitas una buena conexión y un sitio donde puedas hablar con tranquilidad. [Plataforma que uso.]', ph: 'Foto de la sesión online', img: 'shared/img/claudia-videollamada.jpg', gen: true, alt: 'Claudia, sentada en un sillón de su consulta, atiende una videollamada con el portátil en una mesita' },
       ],
     },
     faq: {
@@ -109,6 +110,7 @@
     /* Listas en el mismo orden y longitud que en ES; img, link.href, id y k salen del español */
     I18N.add('ca', { sx: {
       exampleTag: 'Foto d’exemple',
+      genTag: 'Imatge generada',
       pending: '{label} (pendent)',
       doubts: {
         h: 'Gairebé tothom comença amb dubtes',
@@ -130,7 +132,7 @@
         p: '',
         items: [
           { t: 'A la consulta', d: '[Adreça de la consulta a Barcelona, com arribar-hi i si és accessible.]', ph: 'Foto de la consulta', alt: 'La consulta de la Claudia: un sofà verd, una butaca i una catifa al costat de dues finestres amb estors' },
-          { t: 'Per videotrucada', d: 'Des d’on siguis. Només necessites una bona connexió i un lloc on puguis parlar amb tranquil·litat. [Plataforma que faig servir.]', ph: 'Foto de la sessió en línia', alt: 'Persona en una videotrucada des de casa seva' },
+          { t: 'Per videotrucada', d: 'Des d’on siguis. Només necessites una bona connexió i un lloc on puguis parlar amb tranquil·litat. [Plataforma que faig servir.]', ph: 'Foto de la sessió en línia', alt: 'La Claudia, asseguda en una butaca de la consulta, atén una videotrucada amb el portàtil en una tauleta' },
         ],
       },
       faq: {
@@ -196,6 +198,7 @@
     } });
     I18N.add('en', { sx: {
       exampleTag: 'Example photo',
+      genTag: 'Generated image',
       pending: '{label} (pending)',
       doubts: {
         h: 'Almost everyone starts out unsure',
@@ -217,7 +220,7 @@
         p: '',
         items: [
           { t: 'At my practice', d: '[Address of the practice in Barcelona, how to get there and whether it’s accessible.]', ph: 'Photo of the practice', alt: 'Claudia’s consulting room: a green sofa, an armchair and a rug by two windows with blinds' },
-          { t: 'By video call', d: 'Wherever you are. All you need is a good connection and a quiet place where you can talk freely. [Platform I use.]', ph: 'Photo of an online session', alt: 'Person on a video call at home' },
+          { t: 'By video call', d: 'Wherever you are. All you need is a good connection and a quiet place where you can talk freely. [Platform I use.]', ph: 'Photo of an online session', alt: 'Claudia, sitting in an armchair in her consulting room, on a video call with her laptop on a side table' },
         ],
       },
       faq: {
@@ -317,8 +320,9 @@
   const shell = (name, inner, cls = '') => `<section class="sx sx--${name} ${cls}" aria-labelledby="sx-${name}-h"><div class="sx__in">${inner}</div></section>`;
   const head = (name, h, p) => `<div class="sx__head"><h2 class="sx__h" id="sx-${name}-h">${esc(h)}</h2>${p ? `<p class="sx__lead">${esc(p)}</p>` : ''}</div>`;
   /* real: foto de verdad de Claudia o de su consulta, sin la etiqueta «Foto de ejemplo» */
-  const ph = (label, cls = '', img = '', alt = '', real = false) => img
-    ? `<figure class="sx-ph sx-ph--img ${cls}"><img src="${img}" alt="${esc(alt)}" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('sx-ph--img');this.remove()">${real ? '' : `<figcaption class="sx-ph__tag">${esc(tx('exampleTag'))}</figcaption>`}</figure>`
+  /* gen: imagen generada a partir de Claudia: se avisa con «Imagen generada» */
+  const ph = (label, cls = '', img = '', alt = '', real = false, gen = false) => img
+    ? `<figure class="sx-ph sx-ph--img ${cls}"><img src="${img}" alt="${esc(alt)}" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('sx-ph--img');this.remove()">${real ? '' : `<figcaption class="sx-ph__tag">${esc(tx(gen ? 'genTag' : 'exampleTag'))}</figcaption>`}</figure>`
     : `<figure class="sx-ph ${cls}" role="img" aria-label="${esc(tx('pending', { label }))}"><figcaption>[${esc(label)}]</figcaption></figure>`;
 
   const R = {
@@ -333,7 +337,7 @@
     },
     places() {
       const t = block('places');
-      return shell('places', head('places', t.h, t.p) + `<ul class="sx__cards sx__cards--2">${t.items.map((i) => `<li class="sx__card sx__card--media">${ph(i.ph, '', i.img, i.alt, i.real)}<div class="sx__cardbody"><h3>${esc(i.t)}</h3><p>${esc(i.d)}</p></div></li>`).join('')}</ul>`);
+      return shell('places', head('places', t.h, t.p) + `<ul class="sx__cards sx__cards--2">${t.items.map((i) => `<li class="sx__card sx__card--media">${ph(i.ph, '', i.img, i.alt, i.real, i.gen)}<div class="sx__cardbody"><h3>${esc(i.t)}</h3><p>${esc(i.d)}</p></div></li>`).join('')}</ul>`);
     },
     faq() {
       const t = block('faq');
