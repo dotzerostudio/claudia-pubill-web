@@ -1,0 +1,107 @@
+/* Estilos de los bloques de shared/sections.js.
+   Sin tocar nada heredan el color y la letra de la página. Cada propuesta los viste con estas variables (todas opcionales):
+   --sx-ink --sx-muted --sx-line --sx-accent --sx-accent-ink --sx-alt --sx-card --sx-radius --sx-btn-radius
+   --sx-display --sx-display-weight --sx-body --sx-max --sx-gutter --sx-ph-a --sx-ph-b --sx-foot-bg --sx-foot-ink */
+.sx {
+  --_ink: var(--sx-ink, currentColor);
+  --_muted: var(--sx-muted, color-mix(in srgb, currentColor 68%, transparent));
+  --_line: var(--sx-line, color-mix(in srgb, currentColor 16%, transparent));
+  --_accent: var(--sx-accent, currentColor);
+  --_r: var(--sx-radius, 14px);
+  color: var(--_ink);
+  font-family: var(--sx-body, inherit);
+  line-height: 1.55;
+}
+.sx *, .sx *::before, .sx *::after { box-sizing: border-box; min-width: 0; }
+.sx--alt { background: var(--sx-alt, color-mix(in srgb, currentColor 5%, transparent)); }
+.sx__in { max-width: var(--sx-max, 1120px); margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) var(--sx-gutter, clamp(1.1rem, 4vw, 3rem)); }
+.sx :focus-visible { outline: 3px solid var(--_accent); outline-offset: 3px; }
+
+.sx__head { max-width: 44rem; margin: 0 0 clamp(1.6rem, 3.5vw, 2.6rem); }
+.sx__head--wide { max-width: 50rem; }
+.sx__h { margin: 0; font: var(--sx-display-weight, 400) clamp(1.7rem, 3.2vw, 2.5rem)/1.12 var(--sx-display, inherit); letter-spacing: -0.01em; text-wrap: balance; }
+.sx__lead { margin: 0.8rem 0 0; font-size: 1.1rem; color: var(--_muted); max-width: 40rem; text-wrap: pretty; }
+.sx__meta { margin: 0 0 0.4rem; font-size: 0.9rem; color: var(--_muted); }
+.sx__tag { display: inline-block; margin-left: 0.4rem; padding: 0.05rem 0.55rem; border: 1px solid var(--_line); border-radius: 999px; font-size: 0.75rem; }
+
+.sx__row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem 1.8rem; margin-top: 1.5rem; }
+.sx__btn {
+  display: inline-flex; align-items: center; min-height: 3rem; padding: 0.7rem 1.4rem; border-radius: var(--sx-btn-radius, 999px);
+  background: var(--_accent); color: var(--sx-accent-ink, Canvas); font-weight: 600; text-decoration: none; transition: filter 0.2s;
+}
+.sx__btn:hover { filter: brightness(1.12); }
+.sx__link { font-weight: 600; color: inherit; text-decoration: underline; text-underline-offset: 0.22em; text-decoration-thickness: 1.5px; text-decoration-color: var(--_accent); padding: 0.4rem 0; }
+.sx__link:hover { text-decoration-color: currentColor; }
+
+/* tarjetas */
+.sx__cards { display: grid; gap: clamp(1rem, 2.4vw, 1.6rem); list-style: none; margin: 0; padding: 0; }
+.sx__cards--3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+.sx__cards--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+.sx__card { display: flex; flex-direction: column; gap: 0.6rem; padding: clamp(1.2rem, 2.4vw, 1.7rem); background: var(--sx-card, transparent); border: 1px solid var(--_line); border-radius: var(--_r); overflow: hidden; }
+.sx__card h3 { margin: 0; font: var(--sx-display-weight, 400) 1.3rem/1.2 var(--sx-display, inherit); text-wrap: balance; }
+.sx__card p { margin: 0; color: var(--_muted); }
+.sx__card .sx__link { align-self: flex-start; margin-top: auto; }
+.sx__card--media { padding: 0; gap: 0; }
+.sx__cardbody { display: flex; flex-direction: column; gap: 0.5rem; padding: clamp(1.1rem, 2.2vw, 1.5rem); }
+.sx__card--media .sx__cardbody p.sx__meta { margin: 0; }
+
+/* hueco de foto */
+.sx-ph {
+  margin: 0; aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 0.9rem;
+  border-bottom: 1px dashed var(--_line); border-radius: 0;
+  background:
+    radial-gradient(120% 120% at 15% 10%, var(--sx-ph-a, color-mix(in srgb, var(--_accent) 22%, transparent)), transparent 62%),
+    radial-gradient(90% 100% at 92% 92%, var(--sx-ph-b, color-mix(in srgb, var(--_accent) 9%, transparent)), transparent 58%);
+}
+.sx-ph figcaption { font-size: 0.82rem; color: var(--_muted); }
+.sx-ph--2 { background-position: 100% 0, 0 100%; }
+.sx-ph--3 { background-position: 0 100%, 100% 0; }
+.sx-ph { position: relative; }
+.sx-ph--img { padding: 0; border-bottom: 0; background: var(--_line); overflow: hidden; }
+.sx-ph--img::before, .sx-ph--img::after { display: none !important; }
+.sx-ph--img img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; filter: var(--sx-img-filter, none); }
+.sx-ph__tag { position: absolute; left: 0.7rem; bottom: 0.7rem; padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.74rem; background: rgba(255, 255, 255, 0.86); color: #26262b; }
+.sx--podcast .sx-ph { border: 1px dashed var(--_line); border-radius: var(--_r); aspect-ratio: 1 / 1; }
+
+/* preguntas */
+.sx__faq { max-width: 50rem; border-top: 1px solid var(--_line); }
+.sx__q { border-bottom: 1px solid var(--_line); }
+.sx__q summary { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 1.15rem 0; cursor: pointer; list-style: none; font-weight: 600; font-size: 1.08rem; }
+.sx__q summary::-webkit-details-marker { display: none; }
+.sx__q summary::after { content: "+"; flex: none; font-weight: 400; font-size: 1.5rem; line-height: 1; transition: transform 0.2s; }
+.sx__q[open] summary::after { transform: rotate(45deg); }
+.sx__q p { margin: 0 0 1.3rem; max-width: 42rem; color: var(--_muted); text-wrap: pretty; }
+@media (prefers-reduced-motion: reduce) { .sx__q summary::after { transition: none; } }
+
+/* blog y podcast */
+.sx__after { margin: 1.8rem 0 0; }
+.sx__soft, .sx__pill { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.55rem 1.1rem; border: 1px solid var(--_line); border-radius: 999px; color: var(--_muted); font-weight: 600; }
+.sx__soft small, .sx__pill small { font-weight: 400; font-size: 0.8rem; }
+.sx__pod { display: grid; gap: clamp(1.4rem, 4vw, 3rem); align-items: center; }
+@media (min-width: 760px) { .sx__pod { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); } }
+.sx__pills { display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; margin: 1.2rem 0 0; padding: 0; }
+
+/* contacto */
+.sx__contact { display: grid; gap: clamp(1rem, 2.4vw, 1.6rem); grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); list-style: none; margin: 0; padding: 0; }
+.sx__citem { display: flex; align-items: center; gap: 1rem; color: inherit; text-decoration: none; }
+a.sx__citem:hover .sx__ctext strong { text-decoration: underline; text-underline-offset: 0.2em; }
+.sx__ico { flex: none; display: grid; place-items: center; width: 3.2rem; height: 3.2rem; border-radius: 50%; background: var(--sx-alt, color-mix(in srgb, currentColor 7%, transparent)); border: 1px solid var(--_line); }
+.sx__ico svg { width: 1.45rem; height: 1.45rem; fill: none; stroke: var(--_accent); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.sx__ctext { display: grid; gap: 0.1rem; }
+.sx__ctext strong { font: var(--sx-display-weight, 400) 1.25rem/1.2 var(--sx-display, inherit); }
+.sx__ctext small { color: var(--_muted); font-size: 0.9rem; }
+
+/* pie */
+.sx--footer { background: var(--sx-foot-bg, transparent); color: var(--sx-foot-ink, var(--_ink)); border-top: 1px solid var(--_line); font-size: 0.95rem; }
+.sx--footer .sx__in { padding-block: clamp(2.5rem, 6vw, 4rem); }
+.sx__fgrid { display: grid; gap: 2rem 1.6rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); }
+@media (min-width: 900px) { .sx__fgrid { grid-template-columns: 1.5fr repeat(4, 1fr); } }
+.sx__fname { margin: 0 0 0.3rem; font: var(--sx-display-weight, 400) 1.35rem/1.2 var(--sx-display, inherit); }
+.sx__fbrand p { margin: 0 0 0.2rem; opacity: 0.85; }
+.sx__fh { margin: 0 0 0.7rem; font-size: 0.95rem; font-weight: 700; }
+.sx--footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; justify-items: start; }
+.sx--footer a, .sx__flink { color: inherit; opacity: 0.9; text-decoration: underline; text-decoration-color: var(--_line); text-underline-offset: 0.2em; }
+.sx--footer a:hover, .sx__flink:hover { text-decoration-color: currentColor; opacity: 1; }
+.sx__flink { appearance: none; background: none; border: 0; padding: 0; font: inherit; text-align: left; cursor: pointer; }
+.sx__fcrisis { margin: 2.4rem 0 0; padding-top: 1.3rem; border-top: 1px solid var(--_line); max-width: 52rem; opacity: 0.9; }
+.sx__fcopy { margin: 0.8rem 0 0; opacity: 0.7; font-size: 0.88rem; }
